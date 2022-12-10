@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\AdminPages\Pages;
 
@@ -39,7 +39,7 @@ class WelcomeWizard {
   public function render() {
     if ((bool)(defined('DOING_AJAX') && DOING_AJAX)) return;
     $data = [
-      'finish_wizard_url' => $this->wp->adminUrl('admin.php?page=' . Menu::MAIN_PAGE_SLUG),
+      'finish_wizard_url' => $this->wp->adminUrl('admin.php?page=' . Menu::$mainPageSlug),
       'sender' => $this->settings->get('sender'),
       'admin_email' => $this->wp->getOption('admin_email'),
       'current_wp_user' => $this->wp->wpGetCurrentUser()->to_array(),

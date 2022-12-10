@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Config;
 
@@ -10,6 +10,7 @@ use MailPoet\Cron\CronTrigger;
 use MailPoet\InvalidStateException;
 use MailPoet\Migrator\Migrator;
 use MailPoet\Settings\SettingsController;
+use MailPoet\Util\Notices\DisabledMailFunctionNotice;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Doctrine\DBAL\Connection;
 
@@ -84,6 +85,8 @@ class Activator {
 
     $localizer = new Localizer();
     $localizer->forceInstallLanguagePacks($this->wp);
+
+    $this->checkForDisabledMailFunction();
   }
 
   public function deactivate() {
@@ -128,6 +131,15 @@ class Activator {
         'date' => date('Y-m-d H:i:s'),
       ];
       $this->settings->set('updates_log', $updatesLog);
+    }
+  }
+
+  private function checkForDisabledMailFunction() {
+    $sendingMethodSet = $this->settings->get('mta.method', false);
+
+    if ($sendingMethodSet === 'PHPMail') {
+      // check for valid mail function
+      $this->settings->set(DisabledMailFunctionNotice::QUEUE_DISABLED_MAIL_FUNCTION_CHECK, true);
     }
   }
 

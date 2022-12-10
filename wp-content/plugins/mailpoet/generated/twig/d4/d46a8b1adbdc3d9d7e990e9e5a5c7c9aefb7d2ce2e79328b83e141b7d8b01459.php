@@ -186,9 +186,9 @@ class __TwigTemplate_9641d7769a94575cd44aaeff4df310da82a8fe07490b66905fc1e575dba
         // line 44
         echo $this->extensions['MailPoet\Twig\Assets']->generateCdnUrl("newsletter/congratulation-page-illustration-transparent-LQ.20181121-1440.png");
         echo "';
-      var mailpoet_main_page = '";
+      var mailpoet_emails_page = '";
         // line 45
-        echo \MailPoetVendor\twig_escape_filter($this->env, ($context["mailpoet_main_page"] ?? null), "js", null, true);
+        echo \MailPoetVendor\twig_escape_filter($this->env, ($context["mailpoet_email_page"] ?? null), "js", null, true);
         echo "';
       var mailpoet_review_request_illustration_url = '";
         // line 46
